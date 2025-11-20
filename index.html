@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreListo - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body, html { height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        .left-panel {
+            background: linear-gradient(135deg, #5b9bd5 0%, #48c6ef 50%, #2c3e50 100%);
+            color: white;
+            min-height: 90vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            border-radius: 20px; padding: 40px; width: 80%; border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .nav-header { height: 10vh; display: flex; align-items: center; padding-left: 20px; background: white; border-bottom: 1px solid #eee; }
+        .right-panel { height: 90vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; overflow-y: auto; }
+        
+        .brand-logo { font-weight: bold; font-size: 1.5rem; color: #0d6efd; text-decoration: none; }
+        .brand-logo span { color: #0dcaf0; }
+        .hero-text { font-size: 3.5rem; font-weight: 700; line-height: 1.2; }
+        .hero-subtext { color: #1d3557; font-weight: 700; font-size: 1.2rem; margin-top: 20px; }
+
+        .form-control { padding: 12px; border-radius: 5px; border: 1px solid #ced4da; }
+        .login-btn { background-color: #f0f0f0; border: none; color: #555; font-weight: 600; padding: 12px; transition: 0.3s; }
+        .login-btn:hover { background-color: #e0e0e0; }
+        .password-wrapper { position: relative; }
+        .toggle-password { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #999; z-index: 10; }
+
+        .error-banner {
+            background-color: #b92b27;
+            color: white;
+            padding: 12px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+        .close-error { cursor: pointer; opacity: 0.8; }
+
+        .modal-custom-width { max-width: 500px; }
+        .otp-input { width: 50px; height: 50px; text-align: center; font-size: 1.2rem; border: 1px solid #ced4da; border-radius: 5px; margin-right: 10px; }
+        .otp-input:focus { border-color: #0d6efd; outline: none; box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); }
+        
+        .resend-link { color: #0d6efd; text-decoration: none; font-weight: 500; cursor: pointer; }
+        .resend-link.disabled { color: #999; pointer-events: none; text-decoration: none; }
+
+        .validation-list { list-style: none; padding: 0; font-size: 0.8rem; }
+        .validation-list li { margin-bottom: 5px; display: flex; align-items: start; gap: 8px; transition: color 0.2s; }
+        .validation-list i { font-size: 0.8rem; margin-top: 3px; }
+        
+        .validation-list li { color: #dc3545; } 
+        .validation-list li.valid { color: #198754 !important; }
+
+        .btn-primary-custom { background-color: #3b71ca; color: white; border: none; font-weight: 600; padding: 12px; width: 100%; border-radius: 5px; }
+        .btn-primary-custom:hover { background-color: #2a5298; color: white; }
+        .btn-outline-custom { border: 1px solid #3b71ca; color: #3b71ca; font-weight: 600; padding: 12px; width: 100%; border-radius: 5px; }
+        
+        .success-icon-circle { width: 60px; height: 60px; background-color: #4a934a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .success-icon-circle i { color: white; font-size: 2rem; }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid nav-header">
+        <a href="login.html" class="brand-logo"><i class="fas fa-chart-line"></i> Pre<span>Listo</span></a>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 left-panel p-0 d-none d-md-flex">
+                <div class="glass-card">
+                    <h1 class="hero-text">Your<br>gateway to<br>exclusive<br>unlisted<br>stocks</h1>
+                    <p class="hero-subtext">Simple, Secure and Transparent Marketplace</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 right-panel bg-white">
+                <div class="mb-4"><h2 class="fw-bold">Login</h2></div>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label class="form-label">Email ID / mobile no.</label>
+                        <input type="text" class="form-control" id="loginInput" placeholder="Enter your registered email ID / mobile no.">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password">
+                            <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mb-4">
+                        <a href="#" class="text-decoration-none fw-bold" style="color: #0d6efd; font-size: 0.9rem;" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot password?</a>
+                    </div>
+                    
+                    <button type="button" class="btn login-btn w-100 mb-3" onclick="handleLogin()">Login</button>
+
+                    <div class="error-banner d-none" id="loginError">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <div>
+                                <div>Incorrect mobile number or password</div>
+                                <div style="font-size: 0.8rem; font-weight: 400;">Please enter valid credentials</div>
+                            </div>
+                        </div>
+                        <i class="fas fa-times close-error" onclick="toggleError(false)"></i>
+                    </div>
+
+                    <div class="text-center mt-4 mb-5">
+                        <span class="text-muted">Don't have an account?</span>
+                        <a href="register.html" class="text-decoration-none fw-bold" style="color: #0d6efd;">Register now</a>
+                    </div>
+                </form>
+                <div class="text-center mt-auto mb-4">
+                    <a href="#" class="text-decoration-none fw-bold" style="color: #0d6efd; font-size: 0.9rem;">View terms & conditions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-custom-width">
+            <div class="modal-content p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="modal-title">Forgot password</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <p class="text-muted">Enter your registered email ID or mobile number</p>
+                <div class="mb-4">
+                    <label class="form-label">Email ID / mobile no.</label>
+                    <input type="text" class="form-control" id="forgotInput" placeholder="Enter your registered email ID / mobile no.">
+                </div>
+                <button type="button" class="btn btn-primary-custom" onclick="handleForgotProceed()">Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="emailOtpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-custom-width">
+            <div class="modal-content p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="modal-title">OTP Verification</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <p class="text-muted">OTP has been shared to your email ID (<span id="displayEmail" class="fw-bold">...</span>)</p>
+                <div class="mb-3">
+                    <label class="form-label">Enter OTP</label>
+                    <div class="d-flex align-items-center">
+                        <input type="text" class="otp-input otp-digit" maxlength="1">
+                        <input type="text" class="otp-input otp-digit" maxlength="1">
+                        <input type="text" class="otp-input otp-digit" maxlength="1">
+                        <input type="text" class="otp-input otp-digit" maxlength="1">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <span class="text-muted" id="emailTimerLabel">Resend OTP in </span>
+                    <a href="javascript:void(0)" class="resend-link disabled" id="emailResendBtn" onclick="resetTimer('emailResendBtn', 'emailTimerLabel')">00:59</a>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-custom" data-bs-dismiss="modal">Back</button>
+                    <button class="btn btn-primary-custom" onclick="showResetPassword()">Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mobileOtpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-custom-width">
+            <div class="modal-content p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="modal-title">OTP Verification</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <p class="text-muted">OTP has been shared to your mobile number (<span id="displayMobile" class="fw-bold">...</span>)</p>
+                <div class="mb-3">
+                    <label class="form-label">Enter OTP</label>
+                    <div class="d-flex align-items-center">
+                        <input type="text" class="otp-input otp-digit" maxlength="1">
+                        <input type="text" class="otp-input otp-digit" maxlength="1">
+                        <input type="text" class="otp-input otp-digit" maxlength="1">
+                        <input type="text" class="otp-input otp-digit" maxlength="1">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <span class="text-muted" id="mobileTimerLabel">Resend OTP in </span>
+                    <a href="javascript:void(0)" class="resend-link disabled" id="mobileResendBtn" onclick="resetTimer('mobileResendBtn', 'mobileTimerLabel')">00:59</a>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-custom" data-bs-dismiss="modal">Back</button>
+                    <button class="btn btn-primary-custom" onclick="showResetPassword()">Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+            <div class="modal-content p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="modal-title">Generate your password</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-7 border-end pe-4">
+                        <div class="mb-3">
+                            <label class="form-label">Email ID / mobile no.</label>
+                            <input type="text" class="form-control bg-light" id="resetDisplayInput" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">New password</label>
+                            <div class="password-wrapper">
+                                <input type="password" class="form-control" id="newPass" onkeyup="validatePassword()" placeholder="Enter your new new password">
+                                <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Confirm password</label>
+                            <div class="password-wrapper">
+                                <input type="password" class="form-control" id="confirmPass" placeholder="Re-enter your new new password">
+                                <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button class="btn btn-outline-custom" data-bs-dismiss="modal">Back</button>
+                            <button class="btn btn-primary-custom" onclick="finishPasswordReset()">Submit</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 ps-4">
+                        <p class="small fw-bold text-muted">Password must:</p>
+                        <ul class="validation-list">
+                            <li id="rule-length"><i class="fas fa-times me-2"></i> Contain at least 10 characters and a maximum of 28 characters</li>
+                            <li id="rule-case"><i class="fas fa-times me-2"></i> Contain at least one Upper case, one Lower case and one digit</li>
+                            <li id="rule-history"><i class="fas fa-times me-2"></i> Not be the same as any of your previous 3 password(s)</li>
+                            <li id="rule-special"><i class="fas fa-times me-2"></i> Contain at least two special characters (eg:@$%8)</li>
+                            <li id="rule-name"><i class="fas fa-times me-2"></i> Cannot contain your first and last name</li>
+                            <li id="rule-distinct"><i class="fas fa-times me-2"></i> Contain at least 4 distinct characters</li>
+                            <li id="rule-space"><i class="fas fa-times me-2"></i> Not have spaces in between.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="passwordSuccessModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-custom-width">
+            <div class="modal-content p-5 text-center">
+                <div class="d-flex justify-content-end w-100 position-absolute top-0 end-0 p-3">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                
+                <div class="success-icon-circle">
+                    <i class="fas fa-check"></i>
+                </div>
+                
+                <h4 class="fw-bold mb-2">Password generated successfully</h4>
+                <p class="text-muted mb-4">Login with the new password</p>
+
+                <button type="button" class="btn btn-primary-custom" onclick="backToLogin()">Back to login</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function togglePasswordVisibility(icon) {
+            const input = icon.previousElementSibling;
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+
+        function handleLogin() {
+            const input = document.getElementById('loginInput').value;
+            const pass = document.getElementById('loginPassword').value;
+            if (input === '' || pass === '') toggleError(true);
+            else window.location.href = "dashboard.html";
+        }
+
+        function toggleError(show) {
+            const err = document.getElementById('loginError');
+            if(show) err.classList.remove('d-none');
+            else err.classList.add('d-none');
+        }
+
+        function handleForgotProceed() {
+            const input = document.getElementById('forgotInput').value;
+            const forgotModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+            
+            if(input.includes('@')) {
+                document.getElementById('displayEmail').innerText = input;
+                forgotModal.hide();
+                new bootstrap.Modal(document.getElementById('emailOtpModal')).show();
+                startTimer('emailResendBtn', 'emailTimerLabel');
+            } else {
+                document.getElementById('displayMobile').innerText = input || "+91 90001 90001";
+                forgotModal.hide();
+                new bootstrap.Modal(document.getElementById('mobileOtpModal')).show();
+                startTimer('mobileResendBtn', 'mobileTimerLabel');
+            }
+            document.getElementById('resetDisplayInput').value = input || "+91 90001 90001";
+        }
+
+        let timerInterval;
+
+        function startTimer(btnId, labelId) {
+            let time = 59;
+            const btn = document.getElementById(btnId);
+            const label = document.getElementById(labelId);
+
+            btn.classList.add('disabled'); 
+            btn.innerText = "00:59";
+            label.style.display = 'inline'; 
+
+            clearInterval(timerInterval); 
+
+            timerInterval = setInterval(() => {
+                const seconds = time < 10 ? `0${time}` : time;
+                btn.innerText = `00:${seconds}`;
+                time--;
+
+                if (time < 0) {
+                    clearInterval(timerInterval);
+                    btn.innerText = "Resend OTP";
+                    btn.classList.remove('disabled');
+                    label.style.display = 'none'; 
+                }
+            }, 1000);
+        }
+
+        function resetTimer(btnId, labelId) {
+            startTimer(btnId, labelId);
+        }
+
+        document.querySelectorAll('.otp-digit').forEach((input) => {
+            input.addEventListener('input', function() {
+                if (this.value.length === 1 && this.nextElementSibling) {
+                    this.nextElementSibling.focus();
+                }
+            });
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && this.value.length === 0 && this.previousElementSibling) {
+                    this.previousElementSibling.focus();
+                }
+            });
+        });
+
+        function showResetPassword() {
+            const emailModal = bootstrap.Modal.getInstance(document.getElementById('emailOtpModal'));
+            const mobileModal = bootstrap.Modal.getInstance(document.getElementById('mobileOtpModal'));
+            if(emailModal) emailModal.hide();
+            if(mobileModal) mobileModal.hide();
+
+            new bootstrap.Modal(document.getElementById('resetPasswordModal')).show();
+            validatePassword(); 
+        }
+
+        function validatePassword() {
+            const pwd = document.getElementById('newPass').value;
+            
+            const updateRule = (id, condition) => {
+                const el = document.getElementById(id);
+                const icon = el.querySelector('i');
+                if (condition) {
+                    el.classList.add('valid');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-check');
+                } else {
+                    el.classList.remove('valid');
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-times');
+                }
+            };
+
+            updateRule('rule-length', pwd.length >= 10 && pwd.length <= 28);
+            updateRule('rule-case', /[A-Z]/.test(pwd) && /[a-z]/.test(pwd) && /[0-9]/.test(pwd));
+            updateRule('rule-history', true);
+            updateRule('rule-name', true);
+            const specialChars = (pwd.match(/[^a-zA-Z0-9]/g) || []).length;
+            updateRule('rule-special', specialChars >= 2);
+            const distinct = new Set(pwd).size;
+            updateRule('rule-distinct', distinct >= 4);
+            updateRule('rule-space', !/\s/.test(pwd) && pwd.length > 0);
+        }
+
+        function finishPasswordReset() {
+            const resetModal = bootstrap.Modal.getInstance(document.getElementById('resetPasswordModal'));
+            resetModal.hide();
+            new bootstrap.Modal(document.getElementById('passwordSuccessModal')).show();
+        }
+
+        function backToLogin() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

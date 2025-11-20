@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreListo - Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body, html { height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        .left-panel { background: linear-gradient(135deg, #5b9bd5 0%, #48c6ef 50%, #2c3e50 100%); color: white; min-height: 90vh; display: flex; align-items: center; justify-content: center; }
+        .glass-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 40px; width: 80%; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .brand-logo { font-weight: bold; font-size: 1.5rem; color: #0d6efd; text-decoration: none; }
+        .brand-logo span { color: #0dcaf0; }
+        .right-panel { height: 90vh; display: flex; flex-direction: column; justify-content: center; padding: 0 8%; overflow-y: auto; }
+        .hero-text { font-size: 3.5rem; font-weight: 700; line-height: 1.2; }
+        .hero-subtext { color: #1d3557; font-weight: 700; font-size: 1.2rem; margin-top: 20px; }
+        
+        .form-control, .form-select { padding: 10px; border-radius: 5px; border: 1px solid #ced4da; }
+        
+        .form-control.is-valid {
+            border-color: #198754;
+            padding-right: calc(1.5em + .75rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(.375em + .1875rem) center;
+            background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+        }
+
+        .signup-btn, .verify-btn-mobile { background-color: #f0f0f0; border: none; color: #555; font-weight: 600; padding: 12px; transition: 0.3s; }
+        .signup-btn:hover, .verify-btn-mobile:hover { background-color: #e0e0e0; }
+        .verify-btn-email { background-color: #3b71ca; border: none; color: white; font-weight: 600; padding: 12px; }
+        .verify-btn-email:hover { background-color: #2a5298; }
+        .password-wrapper { position: relative; }
+        .toggle-password { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #999; }
+        
+        .form-control.is-invalid, .form-select.is-invalid {
+            border-color: #dc3545;
+            background-image: none;
+        }
+        .invalid-feedback-custom {
+            color: #dc3545; font-size: 0.85rem; margin-top: 5px; display: none; align-items: center; gap: 5px; font-weight: 500;
+        }
+        
+        .pass-req-box {
+            font-size: 0.8rem; color: #666; background: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 5px; display: none;
+        }
+        .pass-req-item { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+        .pass-req-item i { width: 15px; }
+        .pass-req-item.valid { color: #198754; }
+        .pass-req-item.invalid { color: #dc3545; }
+        
+        .otp-input { width: 50px; height: 50px; text-align: center; font-size: 1.2rem; border: 1px solid #ced4da; border-radius: 5px; margin-right: 10px; }
+        .otp-input:focus { border-color: #0d6efd; outline: none; box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); }
+        .otp-input.error { border-color: #dc3545; color: #dc3545; }
+        .modal-custom-width { max-width: 600px; }
+        
+        .resend-link { color: #6c757d; text-decoration: none; font-weight: 500; cursor: default; pointer-events: none; transition: 0.3s; }
+        .resend-link.active { color: #0d6efd; cursor: pointer; pointer-events: auto; text-decoration: underline; }
+
+        .feature-icon-wrapper { background-color: #eef5ff; color: #3b71ca; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 10px auto; }
+        .feature-text { font-size: 0.9rem; font-weight: 600; color: #333; text-align: center; }
+        .btn-outline-custom { border: 1px solid #3b71ca; color: #3b71ca; font-weight: 600; padding: 10px 20px; }
+        .btn-outline-custom:hover { background-color: #eef5ff; }
+        .btn-solid-custom { background-color: #3b71ca; color: white; font-weight: 600; padding: 10px 20px; border: none; }
+        .btn-solid-custom:hover { background-color: #2a5298; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid nav-header">
+        <a href="login.html" class="brand-logo"><i class="fas fa-chart-line"></i> Pre<span>Listo</span></a>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 left-panel p-0 d-none d-md-flex">
+                <div class="glass-card">
+                    <h1 class="hero-text">Your<br>gateway to<br>exclusive<br>unlisted<br>stocks</h1>
+                    <p class="hero-subtext">Simple, Secure and Transparent Marketplace</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 right-panel bg-white">
+                <div class="mb-4 mt-3"><h2 class="fw-bold">Sign up</h2></div>
+                <form id="signupForm">
+                    <div class="row mb-3">
+                        <div class="col-6"><label class="form-label">First name</label><input type="text" id="firstName" class="form-control" placeholder="Enter your first name"></div>
+                        <div class="col-6"><label class="form-label">Last name</label><input type="text" id="lastName" class="form-control" placeholder="Enter your last name"></div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label">Mobile number</label>
+                            <div class="input-group" id="mobileGroup">
+                                <select class="form-select" style="max-width: 80px;"><option selected>+91</option></select>
+                                <input type="text" class="form-control" id="mobileInput" placeholder="Enter your mobile no.">
+                            </div>
+                            <div class="invalid-feedback-custom" id="mobileError">
+                                <i class="fas fa-exclamation-circle"></i> <span id="mobileErrorText">Invalid mobile number</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Email ID</label>
+                            <input type="email" class="form-control" id="emailInput" placeholder="Enter your email ID">
+                            <div class="invalid-feedback-custom" id="emailError">
+                                <i class="fas fa-exclamation-circle"></i> <span id="emailErrorText">Invalid email ID</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <label class="form-label">Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" class="form-control" id="passInput" placeholder="Enter your password">
+                                <i class="fa-regular fa-eye toggle-password" onclick="togglePass('passInput', this)"></i>
+                            </div>
+                            
+                            <div class="pass-req-box" id="passReqBox">
+                                <div class="fw-bold mb-1">Password must:</div>
+                                <div class="pass-req-item" id="req-len"><i class="fas fa-times"></i> 10-28 characters</div>
+                                <div class="pass-req-item" id="req-case"><i class="fas fa-times"></i> Upper, Lower & Digit</div>
+                                <div class="pass-req-item" id="req-spec"><i class="fas fa-times"></i> 1 Special char (@$!%*?&)</div>
+                                <div class="pass-req-item" id="req-space"><i class="fas fa-check"></i> No spaces</div>
+                                <div class="pass-req-item" id="req-name"><i class="fas fa-check"></i> No First/Last name</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Re-enter password</label>
+                            <div class="password-wrapper">
+                                <input type="password" class="form-control" id="confirmPassInput" placeholder="Enter your password" disabled>
+                                <i class="fa-regular fa-eye toggle-password" onclick="togglePass('confirmPassInput', this)"></i>
+                            </div>
+                            <div class="invalid-feedback-custom" id="passMatchError">
+                                <i class="fas fa-exclamation-circle"></i> Passwords do not match
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn signup-btn w-100 mb-3" onclick="attemptSignup()">Sign up</button>
+                    
+                    <div class="text-center mb-4">
+                        <span class="text-muted">Already have an account?</span> <a href="login.html" class="text-decoration-none fw-bold" style="color: #0d6efd;">Login</a>
+                    </div>
+                </form>
+                <div class="text-center mt-auto mb-4"><a href="#" class="text-decoration-none fw-bold" style="color: #0d6efd; font-size: 0.9rem;">View terms & conditions</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mobileOtpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-custom-width">
+            <div class="modal-content p-4">
+                <div class="modal-header border-0 p-0 mb-2"><h3 class="modal-title fw-bold">Verify your mobile number</h3><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body p-0">
+                    <p class="text-muted mb-4">OTP has been shared to your mobile number</p>
+                    <div class="mb-4"><input type="text" class="form-control bg-light" id="modalMobileDisplay" readonly></div>
+                    <div class="mb-2 d-flex align-items-center"><input type="text" class="otp-input otp-field-mobile" maxlength="1"><input type="text" class="otp-input otp-field-mobile" maxlength="1"><input type="text" class="otp-input otp-field-mobile" maxlength="1"><input type="text" class="otp-input otp-field-mobile" maxlength="1"></div>
+                    <div class="invalid-feedback-custom mb-3" id="mobileOtpError"><i class="fas fa-exclamation-circle"></i> Invalid OTP</div>
+                    
+                    <div class="mb-4">
+                        <span class="text-muted" id="mobileTimerLabel">Resend OTP in </span>
+                        <a class="resend-link" id="mobileResendBtn" onclick="triggerResend('mobileResendBtn')">00:59</a>
+                    </div>
+                    
+                    <button type="button" class="btn verify-btn-mobile w-100" onclick="verifyMobile()">Verify</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="emailOtpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-custom-width">
+            <div class="modal-content p-4">
+                <div class="modal-header border-0 p-0 mb-2"><h3 class="modal-title fw-bold">Verify your email ID</h3><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body p-0">
+                    <p class="text-muted mb-4">OTP has been shared to your email ID</p>
+                    <div class="mb-4"><input type="text" class="form-control bg-light" id="modalEmailDisplay" readonly></div>
+                    <div class="mb-2 d-flex align-items-center"><input type="password" class="otp-input otp-field-email" maxlength="1"><input type="password" class="otp-input otp-field-email" maxlength="1"><input type="password" class="otp-input otp-field-email" maxlength="1"><input type="password" class="otp-input otp-field-email" maxlength="1"></div>
+                    <div class="invalid-feedback-custom mb-3" id="emailOtpError"><i class="fas fa-exclamation-circle"></i> Invalid OTP</div>
+                    
+                    <div class="mb-4">
+                        <span class="text-muted" id="emailTimerLabel">Resend OTP in </span>
+                        <a class="resend-link" id="emailResendBtn" onclick="triggerResend('emailResendBtn')">00:59</a>
+                    </div>
+
+                    <button type="button" class="btn verify-btn-email w-100" onclick="verifyEmail()">Verify</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="welcomeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-custom-width">
+            <div class="modal-content p-5 text-center">
+                <div class="d-flex justify-content-end w-100"><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <h2 class="fw-bold mb-2">Welcome to PreListo!</h2>
+                <p class="text-muted mb-5">Your gateway to India's high-growth unlisted stocks is here.</p>
+                <div class="row mb-5">
+                    <div class="col-4"><div class="feature-icon-wrapper"><i class="fas fa-shield-alt"></i></div><div class="feature-text">Secured<br>transactions</div></div>
+                    <div class="col-4"><div class="feature-icon-wrapper"><i class="fas fa-check-circle"></i></div><div class="feature-text">Verified<br>deals</div></div>
+                    <div class="col-4"><div class="feature-icon-wrapper"><i class="fas fa-wand-magic-sparkles"></i></div><div class="feature-text">Personalized<br>opportunities</div></div>
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="dashboard.html" class="btn btn-outline-custom w-50">Continue with Dashboard</a>
+                    <a href="onboarding-step1.html" class="btn btn-solid-custom w-50">Set up account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let isPasswordValid = false;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('mobileInput').addEventListener('blur', validateMobile);
+            document.getElementById('mobileInput').addEventListener('input', clearMobileError);
+            document.getElementById('emailInput').addEventListener('blur', validateEmail);
+            document.getElementById('emailInput').addEventListener('input', clearEmailError);
+            
+            document.getElementById('passInput').addEventListener('focus', () => document.getElementById('passReqBox').style.display = 'block');
+            document.getElementById('passInput').addEventListener('input', checkPasswordStrength);
+            document.getElementById('confirmPassInput').addEventListener('input', checkPasswordMatch);
+        });
+
+        function checkPasswordStrength() {
+            const val = document.getElementById('passInput').value;
+            const fname = document.getElementById('firstName').value.toLowerCase();
+            const lname = document.getElementById('lastName').value.toLowerCase();
+
+            const rLen = val.length >= 10 && val.length <= 28;
+            const rCase = /[A-Z]/.test(val) && /[a-z]/.test(val) && /[0-9]/.test(val);
+            const rSpec = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+            const rSpace = !/\s/.test(val);
+            
+            let rName = true;
+            if(val.length > 0) {
+                if(fname && val.toLowerCase().includes(fname)) rName = false;
+                if(lname && val.toLowerCase().includes(lname)) rName = false;
+            }
+
+            updateReqUI('req-len', rLen);
+            updateReqUI('req-case', rCase);
+            updateReqUI('req-spec', rSpec);
+            updateReqUI('req-space', rSpace);
+            updateReqUI('req-name', rName);
+
+            if(rLen && rCase && rSpec && rSpace && rName) {
+                document.getElementById('confirmPassInput').disabled = false;
+                isPasswordValid = true;
+            } else {
+                document.getElementById('confirmPassInput').disabled = true;
+                document.getElementById('confirmPassInput').value = '';
+                document.getElementById('confirmPassInput').classList.remove('is-valid', 'is-invalid');
+                isPasswordValid = false;
+            }
+            
+            checkPasswordMatch();
+        }
+
+        function updateReqUI(id, isValid) {
+            const el = document.getElementById(id);
+            const icon = el.querySelector('i');
+            if(isValid) {
+                el.classList.add('valid'); el.classList.remove('invalid');
+                icon.className = 'fas fa-check';
+            } else {
+                el.classList.add('invalid'); el.classList.remove('valid');
+                icon.className = 'fas fa-times';
+            }
+        }
+
+        function checkPasswordMatch() {
+            const p1 = document.getElementById('passInput').value;
+            const p2 = document.getElementById('confirmPassInput').value;
+            const errorDiv = document.getElementById('passMatchError');
+            const input2 = document.getElementById('confirmPassInput');
+
+            if(p2.length === 0) {
+                input2.classList.remove('is-valid', 'is-invalid');
+                errorDiv.style.display = 'none';
+                return;
+            }
+
+            if(p1 === p2 && isPasswordValid) {
+                input2.classList.add('is-valid');
+                input2.classList.remove('is-invalid');
+                errorDiv.style.display = 'none';
+            } else {
+                input2.classList.add('is-invalid');
+                input2.classList.remove('is-valid');
+                errorDiv.style.display = 'flex';
+            }
+        }
+
+        function togglePass(id, icon) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+
+        function validateMobile() {
+            const mobile = document.getElementById('mobileInput').value;
+            let valid = true;
+            if(mobile.length > 0) { 
+                if(mobile.length < 10) {
+                    showError('mobileInput', 'mobileError', 'mobileErrorText', "Invalid mobile number", 'mobileGroup');
+                    valid = false;
+                }
+            }
+            return valid;
+        }
+
+        function validateEmail() {
+            const email = document.getElementById('emailInput').value;
+            let valid = true;
+            if(email.length > 0 && !email.includes('@')) {
+                showError('emailInput', 'emailError', 'emailErrorText', "Invalid email ID");
+                valid = false;
+            }
+            return valid;
+        }
+
+        function showError(inputId, errorDivId, errorTextId, errorMsg, groupId = null) {
+            document.getElementById(inputId).classList.add('is-invalid');
+            if(groupId) document.getElementById(groupId).classList.add('is-invalid');
+            if(errorTextId) document.getElementById(errorTextId).innerText = errorMsg;
+            document.getElementById(errorDivId).style.display = 'flex';
+        }
+
+        function clearMobileError() {
+            document.getElementById('mobileInput').classList.remove('is-invalid');
+            document.getElementById('mobileGroup').classList.remove('is-invalid');
+            document.getElementById('mobileError').style.display = 'none';
+        }
+        function clearEmailError() {
+            document.getElementById('emailInput').classList.remove('is-invalid');
+            document.getElementById('emailError').style.display = 'none';
+        }
+
+        function attemptSignup() {
+            const v1 = validateMobile();
+            const v2 = validateEmail();
+            const m = document.getElementById('mobileInput').value;
+            const e = document.getElementById('emailInput').value;
+            
+            const pMatch = document.getElementById('confirmPassInput').classList.contains('is-valid');
+            
+            if(v1 && v2 && m && e && pMatch) {
+                document.getElementById('modalMobileDisplay').value = "+91 " + m;
+                document.getElementById('modalEmailDisplay').value = e;
+                new bootstrap.Modal(document.getElementById('mobileOtpModal')).show();
+                
+                startTimer('mobileResendBtn', 'mobileTimerLabel');
+            }
+        }
+
+        let countdownInterval;
+
+        function startTimer(btnId, labelId) {
+            let timer = 59;
+            const btn = document.getElementById(btnId);
+            const label = document.getElementById(labelId);
+            
+            btn.classList.remove('active');
+            btn.innerText = "00:59";
+            label.style.display = "inline"; 
+            
+            clearInterval(countdownInterval);
+            
+            countdownInterval = setInterval(function () {
+                const seconds = timer < 10 ? "0" + timer : timer;
+                btn.innerText = "00:" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(countdownInterval);
+                    btn.classList.add('active');
+                    btn.innerText = "Resend OTP"; 
+                    label.style.display = "none"; 
+                }
+            }, 1000);
+        }
+
+        function triggerResend(btnId) {
+            const btn = document.getElementById(btnId);
+            if(btn.classList.contains('active')) {
+                
+                const labelId = btnId === 'mobileResendBtn' ? 'mobileTimerLabel' : 'emailTimerLabel';
+                startTimer(btnId, labelId);
+            }
+        }
+
+        function verifyMobile() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('mobileOtpModal'));
+            modal.hide();
+            new bootstrap.Modal(document.getElementById('emailOtpModal')).show();
+            startTimer('emailResendBtn', 'emailTimerLabel');
+        }
+
+        function verifyEmail() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('emailOtpModal'));
+            modal.hide();
+            new bootstrap.Modal(document.getElementById('welcomeModal')).show();
+        }
+        
+        document.querySelectorAll('.otp-input').forEach(input => {
+            input.addEventListener('keyup', function() {
+                if(this.value.length === 1 && this.nextElementSibling) this.nextElementSibling.focus();
+            });
+        });
+    </script>
+</body>
+</html>

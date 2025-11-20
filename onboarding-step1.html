@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreListo - Account Setup Step 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-main {
+            background: white;
+            border-bottom: 1px solid #eee;
+            padding: 10px 20px;
+            height: 70px;
+        }
+        .brand-logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #0d6efd;
+            text-decoration: none;
+        }
+        .brand-logo span { color: #0dcaf0; }
+        
+        .sub-header {
+            background-color: #f0f4f9;
+            padding: 20px 20px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+        .step-text { font-size: 0.85rem; color: #6c757d; margin-bottom: 2px; }
+        .page-title { font-size: 1.5rem; font-weight: 700; color: #333; margin: 0; }
+        .next-step { position: absolute; right: 20px; bottom: 20px; font-size: 0.9rem; color: #555; }
+        .next-step strong { color: #000; }
+        .close-btn {
+            position: absolute; right: 20px; top: 20px;
+            width: 32px; height: 32px;
+            background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .selection-label { font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 15px; }
+
+        .custom-radio-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            height: 100%;
+        }
+        
+        .custom-radio-card:hover {
+            border-color: #b6d4fe;
+            background-color: #fdfdfd;
+        }
+        
+        .custom-radio-card input[type="radio"] {
+            display: none;
+        }
+
+        .radio-circle {
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            border: 2px solid #777;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 15px;
+            flex-shrink: 0;
+            position: relative;
+            top: 3px; 
+        }
+
+        .custom-radio-card.selected {
+            border: 1px solid #0dcaf0;
+            background-color: #f8fdfe;
+        }
+        .custom-radio-card.selected .radio-circle {
+            border-color: #0d6efd;
+        }
+        .custom-radio-card.selected .radio-circle::after {
+            content: '';
+            width: 12px; height: 12px;
+            background-color: #0d6efd;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .card-title { font-weight: 600; color: #333; margin-bottom: 5px; }
+        .card-desc { font-size: 0.85rem; color: #888; line-height: 1.4; }
+
+        .footer-nav {
+            border-top: 1px solid #eee;
+            padding: 20px;
+            background: white;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .btn-back {
+            border: 1px solid #ced4da;
+            background: white;
+            color: #0d6efd;
+            font-weight: 600;
+            padding: 10px 40px;
+            border-radius: 5px;
+        }
+        
+        .btn-proceed {
+            background-color: #2c599d;
+            color: white;
+            border: none;
+            font-weight: 600;
+            padding: 10px 40px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn-proceed:hover { background-color: #1e4072; color: white;}
+        
+        .btn-proceed.disabled {
+            background-color: #ced4da;
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-main d-flex justify-content-between align-items-center">
+        <a href="#" class="brand-logo"><i class="fas fa-chart-line"></i> Pre<span>Listo</span></a>
+    </nav>
+
+    <div class="sub-header">
+        <div class="container-fluid p-0" style="max-width: 900px; margin: 0 auto;">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <p class="mb-1 fw-semibold text-dark">Account set up</p>
+                    <p class="step-text">Step 1/6</p>
+                    <h2 class="page-title">Investor type</h2>
+                </div>
+                <a href="dashboard.html" class="close-btn text-decoration-none"><i class="fas fa-times"></i></a>
+            </div>
+            <div class="next-step d-none d-md-block">Next step: <strong>KYC details</strong></div>
+        </div>
+    </div>
+
+    <div class="content-area">
+        <p class="selection-label">Which best describes you?</p>
+        <div class="row g-3 mb-5">
+            <div class="col-md-6">
+                <label class="custom-radio-card w-100 d-block" onclick="selectCard(this, 'investorType')">
+                    <input type="radio" name="investorType" value="individual">
+                    <div class="d-flex align-items-start">
+                        <div class="radio-circle"></div>
+                        <div>
+                            <div class="card-title">Individual Investor</div>
+                            <div class="card-desc">Choose this if you are investing funds for yourself</div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div class="col-md-6">
+                <label class="custom-radio-card w-100 d-block" onclick="selectCard(this, 'investorType')">
+                    <input type="radio" name="investorType" value="institutional">
+                    <div class="d-flex align-items-start">
+                        <div class="radio-circle"></div>
+                        <div>
+                            <div class="card-title">Institutional Investor</div>
+                            <div class="card-desc">Select this if you are investing on behalf of an organization, company, trust, or as part of a formal entity.</div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <p class="selection-label">Please specify your residency status</p>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="custom-radio-card w-100 d-block" onclick="selectCard(this, 'residency')">
+                    <input type="radio" name="residency" value="resident">
+                    <div class="d-flex align-items-start">
+                        <div class="radio-circle"></div>
+                        <div>
+                            <div class="card-title">Resident Indian (RI)</div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div class="col-md-6">
+                <label class="custom-radio-card w-100 d-block" onclick="selectCard(this, 'residency')">
+                    <input type="radio" name="residency" value="nri">
+                    <div class="d-flex align-items-start">
+                        <div class="radio-circle"></div>
+                        <div>
+                            <div class="card-title">Non-Resident Indian (NRI)</div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-nav">
+        <a href="dashboard.html" class="btn btn-back text-decoration-none">Back</a>
+        <a href="onboarding-step2.html" class="btn btn-proceed disabled text-decoration-none" id="btnProceed">Proceed</a>
+    </div>
+
+    <script>
+        function selectCard(element, groupName) {
+            const allInputs = document.querySelectorAll(`input[name="${groupName}"]`);
+            allInputs.forEach(input => {
+                input.closest('.custom-radio-card').classList.remove('selected');
+            });
+
+            element.classList.add('selected');
+            
+            const radio = element.querySelector('input[type="radio"]');
+            if(radio) radio.checked = true;
+
+            validateSelection();
+        }
+
+        function validateSelection() {
+            const typeSelected = document.querySelector('input[name="investorType"]:checked');
+            const residencySelected = document.querySelector('input[name="residency"]:checked');
+            const btn = document.getElementById('btnProceed');
+
+            if (typeSelected && residencySelected) {
+                btn.classList.remove('disabled');
+            } else {
+                btn.classList.add('disabled');
+            }
+        }
+    </script>
+</body>
+</html>

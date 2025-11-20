@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreListo - Account Setup Step 3</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body, html { height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #ffffff; display: flex; flex-direction: column; }
+        .navbar-main { background: white; border-bottom: 1px solid #eee; padding: 10px 20px; height: 70px; }
+        .brand-logo { font-weight: bold; font-size: 1.5rem; color: #0d6efd; text-decoration: none; }
+        .brand-logo span { color: #0dcaf0; }
+        
+        .sub-header { background-color: #f0f4f9; padding: 20px 20px; border-bottom: 1px solid #eee; position: relative; }
+        .step-text { font-size: 0.85rem; color: #6c757d; margin-bottom: 2px; }
+        .page-title { font-size: 1.5rem; font-weight: 700; color: #333; margin: 0; }
+        .next-step { position: absolute; right: 20px; bottom: 20px; font-size: 0.9rem; color: #555; }
+        .next-step strong { color: #000; }
+        .close-btn { position: absolute; right: 20px; top: 20px; width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .content-area { flex: 1; padding: 40px 20px; max-width: 900px; margin: 0 auto; width: 100%; padding-bottom: 60px; }
+        .footer-nav { border-top: 1px solid #eee; padding: 20px; background: white; display: flex; justify-content: flex-end; gap: 15px; }
+        .btn-back { border: 1px solid #ced4da; background: white; color: #0d6efd; font-weight: 600; padding: 10px 40px; border-radius: 5px; }
+        .btn-proceed { background-color: #2c599d; color: white; border: none; font-weight: 600; padding: 10px 40px; border-radius: 5px; }
+        .btn-proceed:hover { background-color: #1e4072; color: white; }
+
+        .form-label { font-weight: 600; font-size: 0.85rem; color: #333; margin-bottom: 5px; }
+        .form-control, .form-select { padding: 10px; border-radius: 4px; border: 1px solid #ced4da; font-size: 0.95rem; }
+        
+        .section-label { font-size: 0.85rem; color: #6c757d; margin-top: 20px; margin-bottom: 10px; }
+
+        .upload-box {
+            border: 2px dashed #ced4da;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .upload-box:hover { border-color: #0d6efd; background-color: #f8fdfe; }
+        .upload-text { font-size: 0.9rem; color: #333; font-weight: 500; }
+        .upload-subtext { font-size: 0.75rem; color: #999; }
+        .upload-icon { font-size: 1.2rem; color: #0d6efd; margin-left: 10px; }
+
+        .upload-success {
+            border: 1px dashed #28a745;
+            background-color: #f8fff9;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .file-info { display: flex; align-items: center; gap: 10px; }
+        .success-icon { color: #28a745; font-size: 1.2rem; }
+        .file-name { font-weight: 600; font-size: 0.9rem; color: #333; }
+        .upload-status { font-size: 0.75rem; color: #28a745; }
+        .action-icons i { cursor: pointer; margin-left: 10px; color: #6c757d; }
+        .action-icons i:hover { color: #dc3545; }
+        
+        .spinner-border-sm { width: 1rem; height: 1rem; border-width: 0.15em; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-main d-flex justify-content-between align-items-center">
+        <a href="#" class="brand-logo"><i class="fas fa-chart-line"></i> Pre<span>Listo</span></a>
+    </nav>
+
+    <div class="sub-header">
+        <div class="container-fluid p-0" style="max-width: 900px; margin: 0 auto;">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <p class="mb-1 fw-semibold text-dark">Account set up</p>
+                    <p class="step-text">Step 3/6</p>
+                    <h2 class="page-title">Personal details</h2>
+                </div>
+                <a href="dashboard.html" class="close-btn text-decoration-none"><i class="fas fa-times"></i></a>
+            </div>
+            <div class="next-step d-none d-md-block">Next step: <strong>Bank account details</strong></div>
+        </div>
+    </div>
+
+    <div class="content-area">
+        <form>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" placeholder="Enter your full name">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Date of birth</label>
+                    <input type="date" class="form-control" placeholder="DD/MM/YYYY">
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">Gender</label>
+                    <select class="form-select">
+                        <option selected disabled>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Father / Spouse / Mother's name (Optional)</label>
+                    <input type="text" class="form-control" placeholder="Enter name">
+                </div>
+            </div>
+
+            <div class="section-label">Address details</div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-control" placeholder="Enter your address" id="permAddr">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">City / District</label>
+                    <input type="text" class="form-control" placeholder="Enter city" id="permCity">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">State</label>
+                    <input type="text" class="form-control" placeholder="Enter state" id="permState">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Pincode</label>
+                    <input type="text" class="form-control" placeholder="Enter pincode" id="permPin">
+                </div>
+            </div>
+
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="sameAddress">
+                <label class="form-check-label fw-semibold" for="sameAddress" style="font-size: 0.9rem;">
+                    Communication address is same as above
+                </label>
+            </div>
+
+            <div class="section-label">Communication Address details</div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-control" placeholder="Enter communication address" id="commAddr">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">City / District</label>
+                    <input type="text" class="form-control" placeholder="Enter city" id="commCity">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">State</label>
+                    <input type="text" class="form-control" placeholder="Enter state" id="commState">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Pincode</label>
+                    <input type="text" class="form-control" placeholder="Enter pincode" id="commPin">
+                </div>
+            </div>
+
+            <label class="form-label">Upload address proof <i class="fas fa-info-circle text-muted"></i></label>
+            
+            <input type="file" id="realFileInput" style="display: none;" accept=".png,.jpg,.jpeg,.pdf">
+
+            <div class="upload-box" id="uploadBox" onclick="triggerUpload()">
+                <div id="uploadTextContainer">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="far fa-file-alt text-primary me-2"></i>
+                        <span class="upload-text">Click to Upload / Drag & drop file</span>
+                        <i class="fas fa-upload upload-icon"></i>
+                    </div>
+                    <div class="upload-subtext mt-1">Max size: 2MB | Format: png, jpg, pdf</div>
+                </div>
+                <div id="uploadSpinner" class="d-none text-primary">
+                    <div class="spinner-border spinner-border-sm" role="status"></div> Uploading...
+                </div>
+            </div>
+
+            <div class="upload-success d-none" id="uploadSuccess">
+                <div class="file-info">
+                    <i class="fas fa-check-circle success-icon"></i>
+                    <div>
+                        <div class="file-name" id="uploadedFileName">filename.pdf</div>
+                        <div class="upload-status">Upload Successful</div>
+                    </div>
+                </div>
+                <div class="action-icons">
+                    <i class="far fa-eye"></i>
+                    <i class="far fa-trash-alt" onclick="resetUpload()"></i>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer-nav">
+        <a href="onboarding-step2.html" class="btn btn-back text-decoration-none">Back</a>
+        <a href="onboarding-step4.html" class="btn btn-proceed text-decoration-none">Proceed</a>
+    </div>
+
+    <script>
+        const sameAddrCheckbox = document.getElementById('sameAddress');
+        const commFields = ['commAddr', 'commCity', 'commState', 'commPin'];
+        const permFields = ['permAddr', 'permCity', 'permState', 'permPin'];
+
+        sameAddrCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                commFields.forEach((id, index) => {
+                    document.getElementById(id).value = document.getElementById(permFields[index]).value;
+                });
+            } else {
+                commFields.forEach(id => document.getElementById(id).value = '');
+            }
+        });
+
+        function triggerUpload() {
+            document.getElementById('realFileInput').click();
+        }
+
+        document.getElementById('realFileInput').addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                
+                // UI Logic
+                const box = document.getElementById('uploadBox');
+                const text = document.getElementById('uploadTextContainer');
+                const spinner = document.getElementById('uploadSpinner');
+                const success = document.getElementById('uploadSuccess');
+
+                text.classList.add('d-none');
+                spinner.classList.remove('d-none');
+
+                setTimeout(() => {
+                    box.classList.add('d-none');
+                    spinner.classList.add('d-none');
+                    text.classList.remove('d-none'); 
+                    
+                    document.getElementById('uploadedFileName').textContent = file.name;
+                    success.classList.remove('d-none');
+                }, 1500);
+            }
+        });
+
+        function resetUpload() {
+            document.getElementById('realFileInput').value = ''; 
+            document.getElementById('uploadBox').classList.remove('d-none');
+            document.getElementById('uploadSuccess').classList.add('d-none');
+        }
+    </script>
+</body>
+</html>
