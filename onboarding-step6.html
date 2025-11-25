@@ -16,13 +16,21 @@
         .sub-header { background-color: #f0f4f9; padding: 20px 20px; border-bottom: 1px solid #eee; position: relative; }
         .step-text { font-size: 0.85rem; color: #6c757d; margin-bottom: 2px; }
         .page-title { font-size: 1.5rem; font-weight: 700; color: #333; margin: 0; }
-        .almost-done { position: absolute; right: 20px; bottom: 20px; font-size: 0.9rem; color: #6c757d; }
-        .close-btn { position: absolute; right: 20px; top: 20px; width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .content-area { flex: 1; padding: 40px 20px; max-width: 900px; margin: 0 auto; width: 100%; padding-bottom: 60px; }
-        .footer-nav { border-top: 1px solid #eee; padding: 20px; background: white; display: flex; justify-content: flex-end; gap: 15px; }
-        .btn-back { border: 1px solid #ced4da; background: white; color: #0d6efd; font-weight: 600; padding: 10px 40px; border-radius: 5px; }
         
-        .btn-submit { background-color: #ced4da; color: white; border: none; font-weight: 600; padding: 10px 40px; border-radius: 5px; pointer-events: none; transition: 0.3s; }
+        .almost-done { position: absolute; right: 20px; bottom: 20px; font-size: 0.9rem; color: #6c757d; display: block; }
+        .desktop-close-btn { position: absolute; right: 20px; top: 20px; width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; }
+        
+        .mobile-back-link { display: none; }
+        .mobile-next-step { display: none; }
+        .mobile-top-row { display: none; } 
+
+        .content-area { flex: 1; padding: 40px 20px; max-width: 900px; margin: 0 auto; width: 100%; padding-bottom: 60px; }
+        
+        .footer-nav { border-top: 1px solid #eee; padding: 20px; background: white; display: flex; justify-content: flex-end; gap: 15px; }
+        
+        .btn-back { border: 1px solid #ced4da; background: white; color: #0d6efd; font-weight: 600; padding: 10px 40px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        
+        .btn-submit { background-color: #ced4da; color: white; border: none; font-weight: 600; padding: 10px 40px; border-radius: 5px; pointer-events: none; transition: 0.3s; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
         .btn-submit.active { background-color: #3b71ca; pointer-events: auto; cursor: pointer; }
         .btn-submit.active:hover { background-color: #2a5298; }
 
@@ -38,7 +46,7 @@
         .review-table th { color: #6c757d; font-weight: 600; font-size: 0.75rem; padding-bottom: 10px; text-align: left; }
         .review-table td { font-weight: 600; color: #333; padding-bottom: 10px; }
         .table-row-border { border-bottom: 1px solid #f0f0f0; }
-        .review-table td img { height: 16px; margin-right: 5px; vertical-align: middle; } /* Logic for bank icons */
+        .review-table td img { height: 16px; margin-right: 5px; vertical-align: middle; }
 
         .declaration-box { display: flex; gap: 15px; align-items: flex-start; margin-bottom: 20px; }
         .custom-check { width: 20px; height: 20px; margin-top: 3px; cursor: pointer; }
@@ -50,6 +58,48 @@
         .modal-feature-item { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: #333; font-weight: 500; font-size: 0.95rem; }
         .modal-feature-item i { color: #3b71ca; font-size: 1.1rem; }
         .modal-custom-width { max-width: 550px; }
+
+        @media (max-width: 768px) {
+            .navbar-main { padding: 10px 15px; height: 60px; }
+            
+            .sub-header { 
+                background-color: #f8f9fa; 
+                padding: 15px 20px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .almost-done, .desktop-close-btn { display: none !important; }
+
+            .mobile-top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
+            .mobile-back-link { display: block; font-size: 0.85rem; font-weight: 600; color: #3b71ca; text-decoration: none; }
+            
+            .mobile-step-row { display: flex; justify-content: space-between; align-items: flex-end; }
+            .mobile-next-step { display: block; text-align: right; font-size: 0.85rem; color: #6c757d; font-weight: 500; }
+            
+            .page-title { font-size: 1.3rem; margin-top: 5px; }
+
+            .content-area { padding: 25px 20px; }
+
+            .review-card { padding: 15px; }
+            
+            .footer-nav { 
+                justify-content: space-between; 
+                padding: 15px 20px;
+            }
+            
+            .btn-back {
+                border: 1px solid #3b71ca;
+                color: #3b71ca;
+                width: 48%; 
+                padding: 12px 0;
+            }
+            
+            .btn-submit {
+                width: 48%;
+                padding: 12px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -60,14 +110,29 @@
 
     <div class="sub-header">
         <div class="container-fluid p-0" style="max-width: 900px; margin: 0 auto;">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <p class="mb-1 fw-semibold text-dark">Account set up</p>
-                    <p class="step-text">Step 6/6</p>
-                    <h2 class="page-title">Review and submit</h2>
-                </div>
-                <a href="dashboard.html" class="close-btn text-decoration-none"><i class="fas fa-times"></i></a>
+            
+            <div class="mobile-top-row d-md-none">
+                <p class="mb-0 fw-semibold text-dark">Account set up</p>
+                <a href="dashboard.html" class="mobile-back-link">Back to dashboard</a>
             </div>
+
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="w-100">
+                    <div class="mobile-step-row">
+                        <div>
+                            <p class="step-text d-none d-md-block">Account set up</p>
+                            <p class="step-text mt-1 mt-md-0">Step 6/6</p>
+                            <h2 class="page-title">Review and submit</h2>
+                        </div>
+                        <div class="mobile-next-step">
+                            Almost done
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="dashboard.html" class="desktop-close-btn text-decoration-none"><i class="fas fa-times"></i></a>
+            </div>
+            
             <div class="almost-done">Almost done</div>
         </div>
     </div>

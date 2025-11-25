@@ -16,21 +16,93 @@
         .sub-header { background-color: #f0f4f9; padding: 20px 20px; border-bottom: 1px solid #eee; position: relative; }
         .step-text { font-size: 0.85rem; color: #6c757d; margin-bottom: 2px; }
         .page-title { font-size: 1.5rem; font-weight: 700; color: #333; margin: 0; }
-        .next-step { position: absolute; right: 20px; bottom: 20px; font-size: 0.9rem; color: #555; }
-        .next-step strong { color: #000; }
-        .close-btn { position: absolute; right: 20px; top: 20px; width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .content-area { flex: 1; padding: 40px 20px; max-width: 900px; margin: 0 auto; width: 100%; padding-bottom: 60px; }
-        .footer-nav { border-top: 1px solid #eee; padding: 20px; background: white; display: flex; justify-content: flex-end; gap: 15px; }
-        .btn-back { border: 1px solid #ced4da; background: white; color: #0d6efd; font-weight: 600; padding: 10px 40px; border-radius: 5px; }
-        .btn-proceed { background-color: #2c599d; color: white; border: none; font-weight: 600; padding: 10px 40px; border-radius: 5px; }
-        .btn-proceed:hover { background-color: #1e4072; color: white; }
+        
+        .desktop-next-step { position: absolute; right: 20px; bottom: 20px; font-size: 0.9rem; color: #555; display: block; }
+        .desktop-close-btn { position: absolute; right: 20px; top: 20px; width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; }
+        
+        .mobile-back-link { display: none; }
+        .mobile-next-step { display: none; }
+        .mobile-top-row { display: none; } 
 
-        .form-label { font-weight: 600; font-size: 0.85rem; color: #333; margin-bottom: 5px; }
-        .form-control, .form-select { padding: 10px; border-radius: 4px; border: 1px solid #ced4da; font-size: 0.95rem; }
-        .account-group-label { font-size: 0.8rem; color: #6c757d; margin-top: 10px; margin-bottom: 15px; }
-        .add-account-link { display: inline-flex; align-items: center; gap: 5px; color: #3b71ca; font-weight: 600; font-size: 0.9rem; text-decoration: none; cursor: pointer; margin-top: 10px; }
+        .content-area { flex: 1; padding: 40px 20px; max-width: 900px; margin: 0 auto; width: 100%; padding-bottom: 60px; }
+        
+        .footer-nav { border-top: 1px solid #eee; padding: 20px; background: white; display: flex; justify-content: flex-end; gap: 15px; }
+        
+        .btn-back { 
+            border: 1px solid #3b71ca; 
+            background: white; 
+            color: #3b71ca; 
+            font-weight: 600; 
+            padding: 10px 40px; 
+            border-radius: 5px; 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .btn-proceed { 
+            background-color: #3b71ca; 
+            color: white; 
+            border: none; 
+            font-weight: 600; 
+            padding: 10px 40px; 
+            border-radius: 5px; 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: background-color 0.3s; 
+        }
+        .btn-proceed:hover { background-color: #2a5298; color: white; }
+
+        .form-label { font-weight: 600; font-size: 0.95rem; color: #333; margin-bottom: 8px; }
+        .form-control, .form-select { padding: 12px; border-radius: 5px; border: 1px solid #ced4da; height: 50px; }
+        
+        .account-group-label { font-size: 0.85rem; color: #6c757d; margin-top: 10px; margin-bottom: 15px; font-weight: 600; }
+        
+        .add-account-link {
+            display: inline-flex; align-items: center; gap: 5px;
+            color: #3b71ca; font-weight: 600; font-size: 0.9rem;
+            text-decoration: none; cursor: pointer; margin-top: 10px;
+        }
         .add-account-link:hover { text-decoration: underline; }
+        
         .divider { border-top: 1px solid #eee; margin: 25px 0; }
+
+        @media (max-width: 768px) {
+            .navbar-main { padding: 10px 15px; height: 60px; }
+            
+            .sub-header { 
+                background-color: #f8f9fa; 
+                padding: 15px 20px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .desktop-next-step, .desktop-close-btn { display: none !important; }
+
+            .mobile-top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
+            .mobile-back-link { display: block; font-size: 0.85rem; font-weight: 600; color: #3b71ca; text-decoration: none; }
+            
+            .mobile-step-row { display: flex; justify-content: space-between; align-items: flex-end; }
+            .mobile-next-step { display: block; text-align: right; font-size: 0.75rem; color: #6c757d; line-height: 1.2; }
+            .mobile-next-step span { display: block; color: #333; font-weight: 500; }
+            
+            .page-title { font-size: 1.3rem; margin-top: 5px; }
+
+            .content-area { padding: 25px 20px; }
+
+            .col-md-6 { width: 100% !important; margin-bottom: 15px; }
+            
+            .footer-nav { 
+                justify-content: space-between; 
+                padding: 15px 20px;
+            }
+            .btn-back, .btn-proceed {
+                width: 48%; 
+                padding: 12px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -41,15 +113,31 @@
 
     <div class="sub-header">
         <div class="container-fluid p-0" style="max-width: 900px; margin: 0 auto;">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <p class="mb-1 fw-semibold text-dark">Account set up</p>
-                    <p class="step-text">Step 5/6</p>
-                    <h2 class="page-title">Demat account details</h2>
-                </div>
-                <a href="dashboard.html" class="close-btn text-decoration-none"><i class="fas fa-times"></i></a>
+            
+            <div class="mobile-top-row d-md-none">
+                <p class="mb-0 fw-semibold text-dark">Account set up</p>
+                <a href="dashboard.html" class="mobile-back-link">Back to dashboard</a>
             </div>
-            <div class="next-step d-none d-md-block">Next step: <strong>Review and submit</strong></div>
+
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="w-100">
+                    <div class="mobile-step-row">
+                        <div>
+                            <p class="step-text d-none d-md-block">Account set up</p>
+                            <p class="step-text mt-1 mt-md-0">Step 5/6</p>
+                            <h2 class="page-title">Demat account details</h2>
+                        </div>
+                        <div class="mobile-next-step">
+                            Next step
+                            <span>Review and submit</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="dashboard.html" class="desktop-close-btn text-decoration-none"><i class="fas fa-times"></i></a>
+            </div>
+            
+            <div class="desktop-next-step">Next step: <strong>Review and submit</strong></div>
         </div>
     </div>
 
@@ -60,7 +148,7 @@
                 <div class="account-block">
                     <div class="account-group-label" id="lblAcct1" style="display:none;">Account 1</div>
 
-                    <div class="row mb-4">
+                    <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Depository</label>
                             <select class="form-select">
@@ -75,7 +163,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Client / Ben. ID</label>
                             <input type="text" class="form-control" placeholder="Enter Client / Beneficiary ID">
@@ -85,7 +173,7 @@
 
             </div>
 
-            <div class="mt-3">
+            <div class="mt-2">
                 <a href="javascript:void(0)" class="add-account-link" onclick="addDematAccount()">
                     <i class="fas fa-plus-circle"></i> Add another account
                 </a>
@@ -95,8 +183,8 @@
     </div>
 
     <div class="footer-nav">
-        <a href="onboarding-step4.html" class="btn btn-back text-decoration-none">Back</a>
-        <a href="onboarding-step6.html" class="btn btn-proceed text-decoration-none">Proceed</a>
+        <a href="onboarding-step4.html" class="btn btn-back">Back</a>
+        <a href="onboarding-step6.html" class="btn btn-proceed">Proceed</a>
     </div>
 
     <script>
@@ -115,7 +203,7 @@
                 <div class="divider"></div>
                 <div class="account-group-label">Account ${accountCount}</div>
                 
-                <div class="row mb-4">
+                <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">Depository</label>
                         <select class="form-select">
@@ -130,7 +218,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">Client / Ben. ID</label>
                         <input type="text" class="form-control" placeholder="Enter Client / Beneficiary ID">

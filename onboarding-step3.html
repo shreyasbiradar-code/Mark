@@ -16,19 +16,54 @@
         .sub-header { background-color: #f0f4f9; padding: 20px 20px; border-bottom: 1px solid #eee; position: relative; }
         .step-text { font-size: 0.85rem; color: #6c757d; margin-bottom: 2px; }
         .page-title { font-size: 1.5rem; font-weight: 700; color: #333; margin: 0; }
-        .next-step { position: absolute; right: 20px; bottom: 20px; font-size: 0.9rem; color: #555; }
-        .next-step strong { color: #000; }
-        .close-btn { position: absolute; right: 20px; top: 20px; width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .content-area { flex: 1; padding: 40px 20px; max-width: 900px; margin: 0 auto; width: 100%; padding-bottom: 60px; }
-        .footer-nav { border-top: 1px solid #eee; padding: 20px; background: white; display: flex; justify-content: flex-end; gap: 15px; }
-        .btn-back { border: 1px solid #ced4da; background: white; color: #0d6efd; font-weight: 600; padding: 10px 40px; border-radius: 5px; }
-        .btn-proceed { background-color: #2c599d; color: white; border: none; font-weight: 600; padding: 10px 40px; border-radius: 5px; }
-        .btn-proceed:hover { background-color: #1e4072; color: white; }
-
-        .form-label { font-weight: 600; font-size: 0.85rem; color: #333; margin-bottom: 5px; }
-        .form-control, .form-select { padding: 10px; border-radius: 4px; border: 1px solid #ced4da; font-size: 0.95rem; }
         
-        .section-label { font-size: 0.85rem; color: #6c757d; margin-top: 20px; margin-bottom: 10px; }
+        .desktop-next-step { position: absolute; right: 20px; bottom: 20px; font-size: 0.9rem; color: #555; display: block; }
+        .desktop-close-btn { position: absolute; right: 20px; top: 20px; width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; }
+        
+        .mobile-back-link { display: none; }
+        .mobile-next-step { display: none; }
+        .mobile-top-row { display: none; } 
+
+        .content-area { flex: 1; padding: 40px 20px; max-width: 900px; margin: 0 auto; width: 100%; padding-bottom: 60px; }
+        
+        .footer-nav { border-top: 1px solid #eee; padding: 20px; background: white; display: flex; justify-content: flex-end; gap: 15px; }
+        
+        .btn-back { 
+            border: 1px solid #3b71ca; 
+            background: white; 
+            color: #3b71ca; 
+            font-weight: 600; 
+            padding: 10px 40px; 
+            border-radius: 5px; 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .btn-proceed { 
+            background-color: #3b71ca; 
+            color: white; 
+            border: none; 
+            font-weight: 600; 
+            padding: 10px 40px; 
+            border-radius: 5px; 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: background-color 0.3s; 
+        }
+        .btn-proceed:hover { background-color: #2a5298; color: white; }
+
+        .form-label { font-weight: 600; font-size: 0.95rem; color: #333; margin-bottom: 8px; }
+        .form-control, .form-select { padding: 12px; border-radius: 5px; border: 1px solid #ced4da; height: 50px; }
+        
+        .section-label { font-size: 0.85rem; color: #6c757d; margin-top: 25px; margin-bottom: 10px; font-weight: 500; }
+
+        .bg-gray-input {
+            background-color: #f2f2f2;
+            color: #333;
+        }
 
         .upload-box {
             border: 2px dashed #ced4da;
@@ -65,6 +100,42 @@
         .action-icons i:hover { color: #dc3545; }
         
         .spinner-border-sm { width: 1rem; height: 1rem; border-width: 0.15em; }
+
+        @media (max-width: 768px) {
+            .navbar-main { padding: 10px 15px; height: 60px; }
+            
+            .sub-header { 
+                background-color: #f8f9fa; 
+                padding: 15px 20px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .desktop-next-step, .desktop-close-btn { display: none !important; }
+
+            .mobile-top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
+            .mobile-back-link { display: block; font-size: 0.85rem; font-weight: 600; color: #3b71ca; text-decoration: none; }
+            
+            .mobile-step-row { display: flex; justify-content: space-between; align-items: flex-end; }
+            .mobile-next-step { display: block; text-align: right; font-size: 0.75rem; color: #6c757d; line-height: 1.2; }
+            .mobile-next-step span { display: block; color: #333; font-weight: 500; }
+            
+            .page-title { font-size: 1.3rem; margin-top: 5px; }
+
+            .content-area { padding: 25px 20px; }
+
+            .col-md-6 { width: 100% !important; margin-bottom: 15px; }
+            
+            .footer-nav { 
+                justify-content: space-between; 
+                padding: 15px 20px;
+            }
+            .btn-back, .btn-proceed {
+                width: 48%; 
+                padding: 12px 0;
+                border-radius: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -75,70 +146,87 @@
 
     <div class="sub-header">
         <div class="container-fluid p-0" style="max-width: 900px; margin: 0 auto;">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <p class="mb-1 fw-semibold text-dark">Account set up</p>
-                    <p class="step-text">Step 3/6</p>
-                    <h2 class="page-title">Personal details</h2>
-                </div>
-                <a href="dashboard.html" class="close-btn text-decoration-none"><i class="fas fa-times"></i></a>
+            
+            <div class="mobile-top-row d-md-none">
+                <p class="mb-0 fw-semibold text-dark">Account set up</p>
+                <a href="dashboard.html" class="mobile-back-link">Back to dashboard</a>
             </div>
-            <div class="next-step d-none d-md-block">Next step: <strong>Bank account details</strong></div>
+
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="w-100">
+                    <div class="mobile-step-row">
+                        <div>
+                            <p class="step-text d-none d-md-block">Account set up</p>
+                            <p class="step-text mt-1 mt-md-0">Step 3/6</p>
+                            <h2 class="page-title">Personal details</h2>
+                        </div>
+                        <div class="mobile-next-step">
+                            Next step
+                            <span>Bank account details</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="dashboard.html" class="desktop-close-btn text-decoration-none"><i class="fas fa-times"></i></a>
+            </div>
+            
+            <div class="desktop-next-step">Next step: <strong>Bank account details</strong></div>
         </div>
     </div>
 
     <div class="content-area">
         <form>
-            <div class="row mb-3">
+            <div class="row">
                 <div class="col-md-6">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter your full name">
+                    <input type="text" class="form-control bg-gray-input" placeholder="Name">
                 </div>
+            
                 <div class="col-md-6">
                     <label class="form-label">Date of birth</label>
-                    <input type="date" class="form-control" placeholder="DD/MM/YYYY">
+                    <input type="text" class="form-control bg-gray-input" placeholder="Date of birth">
                 </div>
             </div>
 
-            <div class="row mb-4">
+            <div class="row">
                 <div class="col-md-6">
                     <label class="form-label">Gender</label>
-                    <select class="form-select">
-                        <option selected disabled>Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
+                    <input type="text" class="form-control bg-gray-input" placeholder="Gender">
                 </div>
+            
                 <div class="col-md-6">
                     <label class="form-label">Father / Spouse / Mother's name (Optional)</label>
-                    <input type="text" class="form-control" placeholder="Enter name">
+                    <input type="text" class="form-control" placeholder="Father / Spouse / Mother's name">
                 </div>
             </div>
 
             <div class="section-label">Address details</div>
-            <div class="row mb-3">
+
+            <div class="row">
                 <div class="col-md-6">
                     <label class="form-label">Address</label>
-                    <input type="text" class="form-control" placeholder="Enter your address" id="permAddr">
+                    <input type="text" class="form-control bg-gray-input" placeholder="Address" id="permAddr">
                 </div>
+            
                 <div class="col-md-6">
                     <label class="form-label">City / District</label>
-                    <input type="text" class="form-control" placeholder="Enter city" id="permCity">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">State</label>
-                    <input type="text" class="form-control" placeholder="Enter state" id="permState">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Pincode</label>
-                    <input type="text" class="form-control" placeholder="Enter pincode" id="permPin">
+                    <input type="text" class="form-control bg-gray-input" placeholder="City / District" id="permCity">
                 </div>
             </div>
 
-            <div class="form-check mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">State</label>
+                    <input type="text" class="form-control bg-gray-input" placeholder="State" id="permState">
+                </div>
+            
+                <div class="col-md-6">
+                    <label class="form-label">Pincode</label>
+                    <input type="text" class="form-control bg-gray-input" placeholder="Pincode" id="permPin">
+                </div>
+            </div>
+
+            <div class="form-check mb-4 mt-2">
                 <input class="form-check-input" type="checkbox" id="sameAddress">
                 <label class="form-check-label fw-semibold" for="sameAddress" style="font-size: 0.9rem;">
                     Communication address is same as above
@@ -146,28 +234,31 @@
             </div>
 
             <div class="section-label">Communication Address details</div>
-            <div class="row mb-3">
+            
+            <div class="row">
                 <div class="col-md-6">
                     <label class="form-label">Address</label>
-                    <input type="text" class="form-control" placeholder="Enter communication address" id="commAddr">
+                    <input type="text" class="form-control" placeholder="Address" id="commAddr">
                 </div>
+            
                 <div class="col-md-6">
                     <label class="form-label">City / District</label>
-                    <input type="text" class="form-control" placeholder="Enter city" id="commCity">
+                    <input type="text" class="form-control" placeholder="City / District" id="commCity">
                 </div>
             </div>
-            <div class="row mb-4">
+            <div class="row">
                 <div class="col-md-6">
                     <label class="form-label">State</label>
-                    <input type="text" class="form-control" placeholder="Enter state" id="commState">
+                    <input type="text" class="form-control" placeholder="State" id="commState">
                 </div>
+            
                 <div class="col-md-6">
                     <label class="form-label">Pincode</label>
-                    <input type="text" class="form-control" placeholder="Enter pincode" id="commPin">
+                    <input type="text" class="form-control" placeholder="Pincode" id="commPin">
                 </div>
             </div>
 
-            <label class="form-label">Upload address proof <i class="fas fa-info-circle text-muted"></i></label>
+            <label class="form-label mt-4">Upload address proof <i class="fas fa-info-circle text-muted"></i></label>
             
             <input type="file" id="realFileInput" style="display: none;" accept=".png,.jpg,.jpeg,.pdf">
 
@@ -202,8 +293,8 @@
     </div>
 
     <div class="footer-nav">
-        <a href="onboarding-step2.html" class="btn btn-back text-decoration-none">Back</a>
-        <a href="onboarding-step4.html" class="btn btn-proceed text-decoration-none">Proceed</a>
+        <a href="onboarding-step2.html" class="btn btn-back">Back</a>
+        <a href="onboarding-step4.html" class="btn btn-proceed">Proceed</a>
     </div>
 
     <script>
@@ -229,7 +320,6 @@
             if (this.files && this.files[0]) {
                 const file = this.files[0];
                 
-                // UI Logic
                 const box = document.getElementById('uploadBox');
                 const text = document.getElementById('uploadTextContainer');
                 const spinner = document.getElementById('uploadSpinner');
